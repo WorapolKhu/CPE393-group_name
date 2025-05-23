@@ -49,9 +49,10 @@ def predict():
         
         # Required fields
         required_fields = ['BHK', 'Size', 'Area Type', 'City', 'Furnishing Status', 
-                          'Tenant Preferred', 'Bathroom', 'Point of Contact', 'Floor', 'ofFloor']
+                          'Tenant Preferred', 'Bathroom', 'Point of Contact', 'CurrentFloor','TotalFloors']
         
         # Validate input
+        print("Received data:", data)
         for field in required_fields:
             if field not in data:
                 return jsonify({'error': f'Missing required field: {field}'}), 400

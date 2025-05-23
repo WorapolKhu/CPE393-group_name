@@ -28,21 +28,19 @@
                 <input type="number" id="size" name="Size" required>
             </div>
               <div class="form-group">
-                <label for="floorInput">Floor:</label>
-                <div style="display: flex; gap: 10px;">
+                <label for="floorInput">Floor:</label>                <div style="display: flex; gap: 10px;">
                     <select id="floorInput" style="flex: 1;" required>
                         <option value="">Select Floor</option>
                         <option value="Ground">Ground</option>
-                        <option value="Lower">Lower Basement</option>
-                        <option value="Upper">Upper Basement</option>
+                        <option value="Basement">Basement</option>
                         <option value="number">Specific Number</option>
                     </select>
                     <input type="number" id="floorNumber" style="flex: 1; display: none;" placeholder="Floor number">
                     <span style="display: flex; align-items: center; margin: 0 5px;">out of</span>
                     <input type="number" id="totalFloors" style="flex: 1;" placeholder="Total floors" min="1" required>
                 </div>
-                <input type="hidden" id="floorValue" name="Floor">
-                <input type="hidden" id="ofFloorValue" name="ofFloor">
+                <input type="hidden" id="CurrentFloor" name="CurrentFloor">
+                <input type="hidden" id="TotalFloors" name="TotalFloors">
             </div>
             
             <div class="form-group">
@@ -108,7 +106,7 @@
         
         <div id="result" class="result" style="display: none;"></div>
     </div>    <script>
-        // Handle floor input
+        // Handle floor input        
         document.getElementById('floorInput').addEventListener('change', function() {
             const floorNumber = document.getElementById('floorNumber');
             if (this.value === 'number') {
@@ -127,14 +125,13 @@
             const floorSelector = document.getElementById('floorInput');
             const floorNumber = document.getElementById('floorNumber');
             const totalFloors = document.getElementById('totalFloors');
-            const floorValue = document.getElementById('floorValue');
-            const ofFloorValue = document.getElementById('ofFloorValue');
+            const currentFloorInput = document.getElementById('CurrentFloor');
+            const totalFloorsInput = document.getElementById('TotalFloors');
             
-            // Replace dictionary values
+            // Replace dictionary values - new mapping as per requirements
             const replaceDict = {
-                'Ground': -1,
-                'Lower': -2,
-                'Upper': -3
+                'Ground': 0,
+                'Basement': -1
             };
             
             if (floorSelector.value && totalFloors.value) {
@@ -150,9 +147,9 @@
                     floor = replaceDict[floorSelector.value];
                 }
                 
-                // Set separate values for Floor and ofFloor
-                floorValue.value = floor;
-                ofFloorValue.value = totalFloors.value;
+                // Set values for CurrentFloor and TotalFloors
+                currentFloorInput.value = floor;
+                totalFloorsInput.value = totalFloors.value;
             }
         }
         
