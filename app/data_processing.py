@@ -27,19 +27,18 @@ class DataProcessor:
             print("Encoder files not found. Please fit and save them first.")
             
     def categorical_encoding(self, data):
-        """Encode categorical features"""
         
         if self.encoder is None or self.load_encoder==False: 
             self.encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
             self.encoder.fit(data[self.categorical_features])
             with open('../models/onehot_encoder.pkl', 'wb') as f:
                 pickle.dump(self.encoder, f)
-        
+        # Print number of categories
         encoded_data = self.encoder.transform(data[self.categorical_features])
         return encoded_data
 
     def numerical_scaling(self, data):
-        """Scale numerical features"""
+        
         if self.scaler is None or self.load_encoder==False:
             self.scaler = StandardScaler()
             self.scaler.fit(data[self.numerical_features])
@@ -115,6 +114,5 @@ class DataProcessor:
         input_scaled = self.numerical_scaling(input_df[self.numerical_features])
         
         X = np.concatenate((input_encoded, input_scaled), axis=1)
-      
-        
+
         return X
