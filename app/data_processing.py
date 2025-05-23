@@ -12,7 +12,7 @@ class DataProcessor:
         self.scaler = None
         self.encoder = None
         self.categorical_features = ['Area Type', 'City', 'Furnishing Status', 'Tenant Preferred', 'Point of Contact']
-        self.numerical_features = ['BHK', 'Size', 'Bathroom','Floor', 'ofFloor']
+        self.numerical_features = ['BHK', 'Size', 'Bathroom', 'CurrentFloor','TotalFloors']
         if load_encoder:
             self.load_encoders()
             
@@ -49,25 +49,32 @@ class DataProcessor:
         
         return scaled_data
 
-    def extract_floor(self,floor_data):
-        regex_1 = re.compile(r'^(\w+)')
-        regex_2 = re.compile(r'(\w+)$')
-        replace_dict = {
-            'Ground': -1,
-            'Lower': -2,
-            'Upper': -3,
+    def extract_floor_info(self,df):
+        """
+        Extracts current floor and total floors from the 'Floor' column,
+        replaces non-numeric labels, converts to int, and drops the original 'Floor' column.
+        """
+        pattern = r'(?P<CurrentFloor>\w+)\s*out\s*of\s*(?P<TotalFloors>\d+)'
+        df[['CurrentFloor', 'TotalFloors']] = df['Floor'].str.extract(pattern)
+        floor_replacements = {
+            'Ground': 0,
+            'Basement': -1
         }
-        a = floor_data.str.extract(regex_1)
-        b = floor_data.str.extract(regex_2)
-        a = a[0].replace(replace_dict)
-        b = b[0].replace(replace_dict)
         
-        result = pd.DataFrame({
-            'Floor': a,
-            'ofFloor': b
-        })
+        # Replace na with the value of 'Floor' column
+        df['CurrentFloor'] = df['CurrentFloor'].fillna(df['Floor'])
+        df['TotalFloors'] = df['TotalFloors'].fillna(df['Floor'])
         
-        return result
+        df['CurrentFloor'] = df['CurrentFloor'].replace(floor_replacements)
+        df['TotalFloors'] = df['TotalFloors'].replace(floor_replacements)
+
+        df['CurrentFloor'] = pd.to_numeric(df['CurrentFloor'], errors='coerce').astype('Int64')
+        df['TotalFloors'] = pd.to_numeric(df['TotalFloors'], errors='coerce').astype('Int64')
+
+        df = df.drop(columns=['Floor'])
+        return df
+
+
     
     def data_process_train(self, data_path):
         """Load and preprocess data"""
@@ -83,11 +90,9 @@ class DataProcessor:
         unused_columns = ['Posted On','Area Locality']
         X.drop(columns=unused_columns, inplace=True, errors='ignore')
         
-        # Handle floor data to 'Floor' and 'ofFloor'
-        floor = self.extract_floor(X['Floor'])
-        X.drop(columns=['Floor'], inplace=True, errors='ignore')
-        X = pd.concat([X, floor], axis=1)
-        
+        # Handle floor data to 'Floor' 
+        X = self.extract_floor_info(X)
+        print(X.columns)
         # Split categorical and numerical features
         categorical_data = self.categorical_encoding(X[self.categorical_features])
         numerical_data = self.numerical_scaling(X[self.numerical_features])
