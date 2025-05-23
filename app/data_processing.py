@@ -74,12 +74,24 @@ class DataProcessor:
         df = df.drop(columns=['Floor'])
         return df
 
-
+    # Outlier Removal
+    def remove_outliers_iqr(self,data, column, threshold=1.5):
+        Q1 = data[column].quantile(0.25)
+        Q3 = data[column].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - threshold * IQR
+        upper_bound = Q3 + threshold * IQR
+        return data[(data[column] >= lower_bound) & (data[column] <= upper_bound)]
     
     def data_process_train(self, data_path):
         """Load and preprocess data"""
         # Load data
         data = pd.read_csv(data_path)
+        print(f"Data shape: {data.shape}")
+        # Remove outliers
+        data = self.remove_outliers_iqr(data, 'Rent')
+        data = self.remove_outliers_iqr(data, 'Size')
+        print(f"Data shape after outlier removal: {data.shape}")
         
         # Split data into features and target
         X = data.drop('Rent', axis=1)
@@ -92,7 +104,7 @@ class DataProcessor:
         
         # Handle floor data to 'Floor' 
         X = self.extract_floor_info(X)
-        print(X.columns)
+
         # Split categorical and numerical features
         categorical_data = self.categorical_encoding(X[self.categorical_features])
         numerical_data = self.numerical_scaling(X[self.numerical_features])
@@ -102,6 +114,7 @@ class DataProcessor:
         
         # Train-test split
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        print(f"Train shape: {X_train.shape}, Test shape: {X_test.shape}")
         
         return X_train, X_test, y_train, y_test
     
@@ -121,3 +134,4 @@ class DataProcessor:
         X = np.concatenate((input_encoded, input_scaled), axis=1)
 
         return X
+    
