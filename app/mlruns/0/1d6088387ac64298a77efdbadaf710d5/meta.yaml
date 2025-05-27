@@ -1,0 +1,16 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/1d6088387ac64298a77efdbadaf710d5/artifacts
+deleted_time: 1748363628641
+end_time: 1748363503292
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 1d6088387ac64298a77efdbadaf710d5
+run_name: serious-frog-781
+run_uuid: 1d6088387ac64298a77efdbadaf710d5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748363485875
+status: 3
+tags: []
+user_id: VICTUS

@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/8d2b773f37474a519df52cebc55fa2c8/artifacts
+end_time: 1748294528731
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8d2b773f37474a519df52cebc55fa2c8
+run_name: NeuralNetwork12
+run_uuid: 8d2b773f37474a519df52cebc55fa2c8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748294517809
+status: 3
+tags: []
+user_id: VICTUS

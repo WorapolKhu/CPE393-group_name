@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1748362004106
+current_stage: None
+description: ''
+last_updated_timestamp: 1748362004106
+name: Neural Network
+run_id: 0ee3b56affd841d4936425af52d4aeb9
+run_link: ''
+source: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/0ee3b56affd841d4936425af52d4aeb9/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/0ee3b56affd841d4936425af52d4aeb9/artifacts/model
+user_id: null
+version: 1

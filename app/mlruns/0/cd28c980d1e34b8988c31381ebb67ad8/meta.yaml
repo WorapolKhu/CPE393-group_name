@@ -1,0 +1,16 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/cd28c980d1e34b8988c31381ebb67ad8/artifacts
+deleted_time: 1748364241791
+end_time: 1748364222050
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: cd28c980d1e34b8988c31381ebb67ad8
+run_name: rumbling-loon-727
+run_uuid: cd28c980d1e34b8988c31381ebb67ad8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748364217913
+status: 3
+tags: []
+user_id: VICTUS

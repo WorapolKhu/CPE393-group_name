@@ -1,0 +1,16 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/501f67c2074c4c88a764e372f94b8232/artifacts
+deleted_time: 1748364241792
+end_time: 1748364177627
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 501f67c2074c4c88a764e372f94b8232
+run_name: melodic-rook-359
+run_uuid: 501f67c2074c4c88a764e372f94b8232
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748364160728
+status: 3
+tags: []
+user_id: VICTUS
