@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/e622913b900e4b56982f92f62e609970/artifacts
+end_time: 1748427600724
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e622913b900e4b56982f92f62e609970
+run_name: Ridge1
+run_uuid: e622913b900e4b56982f92f62e609970
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748427578325
+status: 3
+tags: []
+user_id: VICTUS
