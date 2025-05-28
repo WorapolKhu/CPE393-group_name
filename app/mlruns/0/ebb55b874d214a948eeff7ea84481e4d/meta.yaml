@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/ebb55b874d214a948eeff7ea84481e4d/artifacts
+end_time: 1748294765885
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ebb55b874d214a948eeff7ea84481e4d
+run_name: NeuralNetwork19
+run_uuid: ebb55b874d214a948eeff7ea84481e4d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748294711182
+status: 3
+tags: []
+user_id: VICTUS

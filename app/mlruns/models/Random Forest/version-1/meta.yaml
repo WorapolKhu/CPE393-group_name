@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1748274640942
+current_stage: None
+description: ''
+last_updated_timestamp: 1748274640942
+name: Random Forest
+run_id: b7793e8fbfd9439aa4c6b18b43315696
+run_link: ''
+source: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/b7793e8fbfd9439aa4c6b18b43315696/artifacts/best_estimator
+status: READY
+status_message: null
+storage_location: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/b7793e8fbfd9439aa4c6b18b43315696/artifacts/best_estimator
+user_id: null
+version: 1
