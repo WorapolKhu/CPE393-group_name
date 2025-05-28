@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/884e7f0e8682488ba69bbe727907ef9d/artifacts
+end_time: 1748428735732
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 884e7f0e8682488ba69bbe727907ef9d
+run_name: RandomForest
+run_uuid: 884e7f0e8682488ba69bbe727907ef9d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748428721959
+status: 3
+tags: []
+user_id: VICTUS
