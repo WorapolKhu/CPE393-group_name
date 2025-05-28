@@ -1,5 +1,5 @@
 artifact_uri: file:///d:/year%204%20work/MachineLearningOPS/CPE393-group_name/app/mlruns/0/c069875aa98a47518ad58615d6c3053f/artifacts
-end_time: null
+end_time: 1748431287192
 entry_point_name: ''
 experiment_id: '0'
 lifecycle_stage: active
@@ -10,6 +10,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1748428720401
-status: 1
+status: 3
 tags: []
 user_id: VICTUS
