@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Rent Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .result { margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>House Rent Prediction</h1>
+        <form id="predictionForm">
+            <div class="form-group">
+                <label for="bhk">BHK:</label>
+                <input type="number" id="bhk" name="BHK" required>
+            </div>
+              <div class="form-group">
+                <label for="size">Size (sq ft):</label>
+                <input type="number" id="size" name="Size" required>
+            </div>
+              <div class="form-group">
+                <label for="floorInput">Floor:</label>                <div style="display: flex; gap: 10px;">
+                    <select id="floorInput" style="flex: 1;" required>
+                        <option value="">Select Floor</option>
+                        <option value="Ground">Ground</option>
+                        <option value="Basement">Basement</option>
+                        <option value="number">Specific Number</option>
+                    </select>
+                    <input type="number" id="floorNumber" style="flex: 1; display: none;" placeholder="Floor number">
+                    <span style="display: flex; align-items: center; margin: 0 5px;">out of</span>
+                    <input type="number" id="totalFloors" style="flex: 1;" placeholder="Total floors" min="1" required>
+                </div>
+                <input type="hidden" id="CurrentFloor" name="CurrentFloor">
+                <input type="hidden" id="TotalFloors" name="TotalFloors">
+            </div>
+            
+            <div class="form-group">
+                <label for="areaType">Area Type:</label>
+                <select id="areaType" name="Area Type" required>
+                    <option value="">Select Area Type</option>
+                    <option value="Super Area">Super Area</option>
+                    <option value="Carpet Area">Carpet Area</option>
+                    <option value="Built Area">Built Area</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="city">City:</label>
+                <select id="city" name="City" required>
+                    <option value="">Select City</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="furnishing">Furnishing Status:</label>
+                <select id="furnishing" name="Furnishing Status" required>
+                    <option value="">Select Furnishing Status</option>
+                    <option value="Furnished">Furnished</option>
+                    <option value="Semi-Furnished">Semi-Furnished</option>
+                    <option value="Unfurnished">Unfurnished</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="tenant">Tenant Preferred:</label>
+                <select id="tenant" name="Tenant Preferred" required>
+                    <option value="">Select Tenant Preference</option>
+                    <option value="Bachelors">Bachelors</option>
+                    <option value="Bachelors/Family">Bachelors/Family</option>
+                    <option value="Family">Family</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="bathroom">Bathroom:</label>
+                <input type="number" id="bathroom" name="Bathroom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contact">Point of Contact:</label>
+                <select id="contact" name="Point of Contact" required>
+                    <option value="">Select Contact</option>
+                    <option value="Contact Owner">Contact Owner</option>
+                    <option value="Contact Agent">Contact Agent</option>
+                    <option value="Contact Builder">Contact Builder</option>
+                </select>
+            </div>
+            
+            <button type="submit">Predict Rent</button>
+        </form>
+        
+        <div id="result" class="result" style="display: none;"></div>
+    </div>    
+    <script>
+        // Handle floor input        
+        document.getElementById('floorInput').addEventListener('change', function() {
+            const floorNumber = document.getElementById('floorNumber');
+            if (this.value === 'number') {
+                floorNumber.style.display = 'block';
+                floorNumber.required = true;
+            } else {
+                floorNumber.style.display = 'none';
+                floorNumber.required = false;
+            }
+            updateFloorValue();
+        });
+        
+        document.getElementById('floorNumber').addEventListener('input', updateFloorValue);
+        document.getElementById('totalFloors').addEventListener('input', updateFloorValue);
+          function updateFloorValue() {
+            const floorSelector = document.getElementById('floorInput');
+            const floorNumber = document.getElementById('floorNumber');
+            const totalFloors = document.getElementById('totalFloors');
+            const currentFloorInput = document.getElementById('CurrentFloor');
+            const totalFloorsInput = document.getElementById('TotalFloors');
+            
+            // Replace dictionary values - new mapping as per requirements
+            const replaceDict = {
+                'Ground': 0,
+                'Basement': -1
+            };
+            
+            if (floorSelector.value && totalFloors.value) {
+                let floor;
+                
+                if (floorSelector.value === 'number') {
+                    if (floorNumber.value) {
+                        floor = floorNumber.value;
+                    } else {
+                        return; // Not enough data yet
+                    }
+                } else if (replaceDict[floorSelector.value] !== undefined) {
+                    floor = replaceDict[floorSelector.value];
+                }
+                
+                // Set values for CurrentFloor and TotalFloors
+                currentFloorInput.value = floor;
+                totalFloorsInput.value = totalFloors.value;
+            }
+        }
+        
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Make sure floor value is set before submitting
+            updateFloorValue();
+            
+            const formData = new FormData(this);
+            const data = {};
+              for (let [key, value] of formData.entries()) {
+                data[key] = isNaN(value) ? value : parseFloat(value);
+            }
+            
+            console.log('Sending prediction data:', data);
+            
+            try {
+                const response = await fetch('/dev/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('result').innerHTML = `
+                        <h3>Predicted Rent: ₹${Math.round(result.prediction.prediction)}</h3>
+                        ${result.prediction.confidence_interval ? 
+                            `<p>Confidence Interval: ₹${Math.round(result.prediction.confidence_interval.lower)} - ₹${Math.round(result.prediction.confidence_interval.upper)}</p>` : ''}
+                    `;
+                    document.getElementById('result').style.display = 'block';
+                } else {
+                    document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
+                    document.getElementById('result').style.display = 'block';
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                document.getElementById('result').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

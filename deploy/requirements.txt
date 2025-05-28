@@ -1,0 +1,7 @@
+flask
+aws-wsgi
+pandas
+scikit-learn
+scipy
+joblib
+pytz

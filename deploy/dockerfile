@@ -1,0 +1,26 @@
+# --- Builder Stage ---
+FROM public.ecr.aws/lambda/python:3.13 AS builder
+
+ENV TMPDIR=/tmp
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install all dependencies 
+RUN pip install --upgrade pip --no-cache-dir && \
+    pip install -r requirements.txt --no-cache-dir && \
+    rm -rf /tmp/* /var/tmp/*
+
+# --- Final Stage ---
+FROM public.ecr.aws/lambda/python:3.13
+
+# Copy only installed packages from builder
+COPY --from=builder /var/lang/lib/python3.13/site-packages /var/lang/lib/python3.13/site-packages
+
+# Copy app source code
+COPY lambda_function.py .
+COPY data_processing.py .
+COPY templates/ ./templates
+
+# Set Lambda handler
+CMD ["lambda_function.lambda_handler"]
